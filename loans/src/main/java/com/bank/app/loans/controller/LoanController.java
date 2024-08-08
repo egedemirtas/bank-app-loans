@@ -2,6 +2,7 @@ package com.bank.app.loans.controller;
 
 import com.bank.app.loans.dto.LoanDto;
 import com.bank.app.loans.dto.LoanRequestDto;
+import com.bank.app.loans.dto.LoansContactInfoDto;
 import com.bank.app.loans.dto.ResponseDto;
 import com.bank.app.loans.service.ILoanService;
 import jakarta.validation.Valid;
@@ -19,8 +20,11 @@ public class LoanController {
 
     private final ILoanService iLoanService;
 
-    public LoanController(ILoanService iLoanService) {
+    private final LoansContactInfoDto loansContactInfoDto;
+
+    public LoanController(ILoanService iLoanService, LoansContactInfoDto loansContactInfoDto) {
         this.iLoanService = iLoanService;
+        this.loansContactInfoDto = loansContactInfoDto;
     }
 
     @PostMapping
@@ -52,5 +56,8 @@ public class LoanController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-
+    @GetMapping("/loansInfo")
+    public ResponseEntity<LoansContactInfoDto> getLoansInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(loansContactInfoDto);
+    }
 }
